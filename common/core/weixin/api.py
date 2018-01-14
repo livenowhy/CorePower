@@ -181,3 +181,10 @@ class WeiXinOpenApi(object):
         url_params = payload.to_url_params()
         ret_url = '{url}?{url_params}'.format(url=url, url_params=url_params)
         return ret_url
+
+    def jscode_to_session(self, secret, js_code, grant_type='authorization_code'):
+        url = 'https://api.weixin.qq.com/sns/jscode2session'
+        params = '&'.join(['appid=%s' % self.appid, 'secret=%s' % secret, 'js_code=%s' % js_code, 'grant_type=%s' % grant_type])
+        url = '?'.join([url, params])
+        ret = requests.get(url)
+        return ret.json()
