@@ -17,7 +17,7 @@ class WxAppMchModel(db.Model, BaseModel):
     appid = db.Column(db.String(24), primary_key=True)
     appsecret = db.Column(db.String(32))
     mchid = db.Column(db.String(20))
-    key = db.Column(db.String(32))
+
 
 class WxMchModel(db.Model, BaseModel):
     __tablename__ = 'wx_mch'

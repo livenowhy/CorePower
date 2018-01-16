@@ -30,6 +30,11 @@ import commonware.log
 log = commonware.log.getLogger('common.core.trade.payment.weixin')
 
 
+class WxTradeType(object):
+    NATIVE = 'NATIVE'
+    APP = 'APP'
+
+
 class WeiXinXml(object):
     def __init__(self, x):
         if isinstance(x, (str, unicode)):
@@ -97,3 +102,60 @@ class WeixinPayment(object):
             prepay_id = xml_res.get('prepay_id')
             return prepay_id
         return None
+
+class JSAPIPayment(WeixinPayment):
+    def __init__(self, appid, mch_id, api_secret, appsecret):
+        super(JSAPIPayment, self).__init__(appid=appid, mch_id=mch_id,
+                                           api_secret=api_secret, app_secret=appsecret)
+        self.code = None
+        self.openid = None
+        self.paramters = None
+        self.prepay_id = None
+
+    def get_oauth_code_url(self, redirect_url, state):
+        """ 生成请求code的url """
+        data = {
+            'appid': self.appid,
+            'redirect_uri': redirect_url,
+            'response_type': 'code',
+            'scope': 'snsapi_base',
+            'state': '{0}{1}'.format(state, '#wechat_redirect')
+        }
+        query_param = self.get_param_str(data)
+        return 'https://open.weixin.qq.com/connect/oauth2/authorize?' + query_param
+
+    def get_oauth_openid_url(self):
+        """ 生成请求openid的url """
+        data = {
+            'appid': self.appid,
+            'secret': self.app_secret,
+            'code': self.code,
+            'grant_type': 'authorization_code'
+        }
+        query_param = self.get_param_str(data)
+        return 'https://api.weixin.qq.com/sns/oauth2/access_token?' + query_param
+
+    def get_openid(self):
+        """ 请求openid """
+        url = self.get_oauth_openid_url()
+        ret = requests.get(url)
+        log.info(ret.json())
+        return ret.json().get('openid')
+
+    def set_code(self, code):
+        self.code = code
+
+    def set_prepay_id(self, prepay_id):
+        self.prepay_id = prepay_id
+
+    def get_js_api_parameter(self):
+        data = {
+            'appId': self.appid,
+            'timeStamp': epoch(datetime.datetime.now()),
+            'nonceStr': self.get_nonce_str(),
+            'package': 'prepay_id={0}'.format(self.prepay_id),
+            'signType': 'MD5',
+        }
+        sign = self.get_sign(data)
+        data['paySign'] = sign
+        return data
