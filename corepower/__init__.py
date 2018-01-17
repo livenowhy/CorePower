@@ -13,9 +13,11 @@ from flask_sqlalchemy import SQLAlchemy
 
 
 from views.trade import trade
+from views.authuser import auth_user
 app = Flask(__name__)
 
-app.register_blueprint(trade, url_prefix='/api/v1/trade')   # 镜像相关
+app.register_blueprint(trade, url_prefix='/api/v1/trade')          # 交易相关
+app.register_blueprint(auth_user, url_prefix='/api/v1/authuser')   # 用户相关
 
 CORS(app=app)     # 全局跨域访问
 
@@ -29,7 +31,6 @@ from sqlalchemy.orm import sessionmaker
 
 engine = create_engine(app.config.get('SQLALCHEMY_DATABASE_URI'), echo=True)  # , encoding='utf8', pool_size=30, max_overflow=20)
 Session = sessionmaker(bind=engine)
-
 
 
 @app.before_request
