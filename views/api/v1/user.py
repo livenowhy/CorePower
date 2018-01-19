@@ -13,7 +13,7 @@ from flask_restful import Resource
 from manage.users.auth_user import AuthUser
 
 
-class AuthUserView(Resource):
+class UserView(Resource):
     def get(self):
         print 'ss'
 

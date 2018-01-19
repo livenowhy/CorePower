@@ -16,9 +16,10 @@ from models.base import BaseModel
 class UserModel(db.Model, BaseModel):
     """ 用户 """
     __tablename__ = 'users'
-    id = db.Column(db.String(64), primary_key=True, nullable=False, name='user_uuid')
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True, name='user_uuid')
     user_name = db.Column(db.String(64))   # 用户名
     password = db.Column(db.String(128))
+    salt = db.Column(db.String(128))
 
     fullname = db.Column(db.String(30), default='')
     nickname = db.Column(db.String(30))
@@ -52,9 +53,9 @@ class AuthUserModel(db.Model, BaseModel):
     is_active = db.Column(db.SmallInteger, default=0)  # 是否激活
 
 
-class TokensModel(db.Model, BaseModel):
-    __tablename__ = 'auth_tokens'
-    id = db.Column(db.String(64), primary_key=True, nullable=False, name='token_uuid')
+class TokenModel(db.Model, BaseModel):
+    __tablename__ = 'auth_token'
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True, name='token_uuid')
     token = db.Column(db.String(128))
     user_uuid = db.Column(db.String(64), unique=True)
     team_uuid = db.Column(db.String(64), unique=True)
