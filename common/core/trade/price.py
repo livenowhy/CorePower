@@ -7,10 +7,9 @@
 @time: 2017/11/25
 """
 
-import commonware.log
 from decimal import Decimal
+from common.core.logger import logging as log
 
-log = commonware.log.getLogger('core.trade.price')
 
 class Price(object):
     """ 钱 """

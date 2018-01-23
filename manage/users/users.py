@@ -17,9 +17,8 @@ from common.core.utils.security.password import password_md5_encrypt
 
 from manage.token.token import UserToken
 
-import commonware.log
 
-log = commonware.log.getLogger("manage.users.auth_user")
+from common.core.logger import logging as log
 
 
 class User(Base):

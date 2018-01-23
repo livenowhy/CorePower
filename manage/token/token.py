@@ -14,12 +14,11 @@ import hashlib
 from common.core.base import Base
 
 from models.users import TokenModel
-from django.conf import settings
 from datetime import datetime, timedelta
 from common.core.utils.utils import epoch
 
-import commonware.log
-log = commonware.log.getLogger('common.erpuser.token')
+
+from common.core.logger import logging as log
 
 
 class UserToken(Base):

@@ -1,0 +1,9 @@
+version: '2'
+services:
+  email:
+    image: registry.cn-hangzhou.aliyuncs.com/livenowhy/flask:latest
+    ports:
+    - "8080:8080"
+    volumes:
+    - "./:/data"
+    command: python /data/index.py

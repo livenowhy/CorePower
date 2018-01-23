@@ -13,9 +13,9 @@ def run_server():
     if 'Windows' == systype:
         app.run(debug=True, threaded=True)
     elif 'Darwin' == systype:
-        app.run(debug=True, port=8888, host='0.0.0.0', threaded=True)
+        app.run(debug=True, port=8080, host='0.0.0.0', threaded=True)
     elif 'Linux' == systype:
-        app.run(debug=True, port=8888, host='0.0.0.0', threaded=True)
+        app.run(debug=True, port=8080, host='0.0.0.0', threaded=True)
 
 if __name__ == '__main__':
     run_server()

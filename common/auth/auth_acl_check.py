@@ -12,10 +12,8 @@ import inspect
 
 from .auth_manager import AclManager
 
-import commonware.log
 
-log = commonware.log.getLogger('common.auth.auth_acl_check')
-
+from common.core.logger import logging as log
 
 
 

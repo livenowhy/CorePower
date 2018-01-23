@@ -11,9 +11,8 @@ import hashlib
 import xmltodict
 
 from common.core.weixin.config import WxPayConfig
-import commonware.log
-log = commonware.log.getLogger('common.core.weixin.data')
 
+from common.core.logger import logging as log
 
 class Payload(object):
     def __init__(self):

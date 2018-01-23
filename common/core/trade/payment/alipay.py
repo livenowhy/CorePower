@@ -14,9 +14,8 @@ from urllib import urlencode
 
 from common.core.trade import Price
 
-import commonware.log
-log = commonware.log.getLogger('payment.alipay')
 
+from common.core.logger import logging as log
 
 class AliService(object):
     WAP = 'alipay.wap.create.direct.pay.by.user'

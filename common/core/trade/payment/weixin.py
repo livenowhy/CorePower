@@ -26,9 +26,8 @@ except ImportError:
 
 from common.core.utils.utils import epoch
 
-import commonware.log
-log = commonware.log.getLogger('common.core.trade.payment.weixin')
 
+from common.core.logger import logging as log
 
 class WxTradeType(object):
     NATIVE = 'NATIVE'

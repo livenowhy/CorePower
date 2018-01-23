@@ -14,9 +14,7 @@ import time
 
 from models.resources_acl import ResourcesAclModel
 from common.core.base import Base
-
-import commonware.log
-log = commonware.log.getLogger("common.auth")
+from common.core.logger import logging as log
 
 
 def role_check(action, privilege):

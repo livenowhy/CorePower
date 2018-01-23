@@ -14,8 +14,9 @@ from common.core.weixin.config import WxPayConfig
 from common.core.weixin.data import WxPayResults
 
 
-import commonware.log
-log = commonware.log.getLogger('wx.core.pay.api')
+
+from common.core.logger import logging as log
+
 
 
 class WxPayApi(object):

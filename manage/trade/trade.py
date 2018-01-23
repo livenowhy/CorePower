@@ -20,8 +20,8 @@ from common.constants.transaction.payment import TradeStatus, PayType
 # from common.payment.payment import PaymentService
 #
 
-import commonware.log
-log = commonware.log.getLogger("trade.Trade")
+
+from common.core.logger import logging as log
 
 
 class Trade(Base):

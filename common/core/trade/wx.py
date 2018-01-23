@@ -11,9 +11,8 @@ from common.core.weixin.config import WxPayConfig, WxPayConfig
 from common.exceptions.payment import OrderClosedException, OrderPaidException, OutTradeNoUsedException
 from common.core.weixin.wxapp import WxApp
 
-import commonware.log
-log = commonware.log.getLogger('core.trade.wx')
 
+from common.core.logger import logging as log
 
 class WeixinPayment(object):
     def __init__(self, app):
