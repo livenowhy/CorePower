@@ -12,7 +12,7 @@
 DATABASES = {
     'default': {
         'MYSQL_DATABASE_DB': 'registry',
-        'MYSQL_DATABASE_HOST': '127.0.0.1',
+        'MYSQL_DATABASE_HOST': '47.93.103.114',
         'MYSQL_DATABASE_PORT': '3306',
         'MYSQL_DATABASE_USER': 'root',
         'MYSQL_DATABASE_PASSWORD': 'root123root',
@@ -31,4 +31,3 @@ SQLALCHEMY_DATABASE_URI = 'mysql://{user}:{password}@{host}:{port}/{dbname}?char
 
 
 SQLALCHEMY_TRACK_MODIFICATIONS = False
-SQLALCHEMY_MIGRATE_REPO = '/Users/zhangpei.liu/Desktop/share/CorePower/apps/db'

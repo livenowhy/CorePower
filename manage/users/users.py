@@ -27,8 +27,10 @@ class User(Base):
         self.object = None
 
     @classmethod
-    def create(cls, user_name, salt_password, salt, email):
+    def create(cls, user_name, password, email):
         """ 数据库创建用户 """
+        salt = str(uuid.uuid4())[-11:-1]
+        salt_password = password_md5_encrypt(user_name, password, salt)
         auth_user = UserModel(password=salt_password, user_name=user_name,
                               salt=salt, email=email, is_superuser=False, is_active=False)
         g.db_session.add(auth_user)
@@ -36,14 +38,12 @@ class User(Base):
         return cls(auth_user.id)
 
     @classmethod
-    def user_create(cls, user_name, password, email, code_id=None, code_str=None):
+    def user_create(cls, user_name, password, email):
         # 验证码验证
         # 用户名无重复验证
         # 邮箱无重复验证
         # 短信验证码验证
-        salt = str(uuid.uuid4())[-11:-1]
-        salt_password = password_md5_encrypt(user_name, password, salt)
-        cls.create(user_name, salt_password, salt, email)
+        cls.create(user_name, password, email)
 
     def get_obj_by_id(self):
         return g.db_session.query(UserModel).get(self.id)

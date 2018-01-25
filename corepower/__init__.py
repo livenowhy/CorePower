@@ -13,11 +13,11 @@ from flask_sqlalchemy import SQLAlchemy
 
 
 from views.trade import trade
-from views.authuser import auth_user
+from views.user import user
 app = Flask(__name__)
 
 app.register_blueprint(trade, url_prefix='/api/v1/trade')          # 交易相关
-app.register_blueprint(auth_user, url_prefix='/api/v1/authuser')   # 用户相关
+app.register_blueprint(user, url_prefix='/api/v1/user')   # 用户相关
 
 CORS(app=app)     # 全局跨域访问
 

@@ -14,6 +14,7 @@ import hashlib
 from common.core.base import Base
 
 from models.users import TokenModel
+from models.users import UserModel
 from datetime import datetime, timedelta
 from common.core.utils.utils import epoch
 
@@ -29,15 +30,15 @@ class UserToken(Base):
     @classmethod
     def get(cls, token):
         try:
-            access_token = ErpUserTokenModel.objects.get(token=token)
+            access_token = TokenModel.objects.get(token=token)
             return cls(access_token.id)
-        except ErpUserTokenModel.DoesNotExist:
+        except TokenModel.DoesNotExist:
             log.info("无法识别身份: %s" % token)
             raise erptokenerror.APITokenNotExistException
 
     def get_object(self):
         if self.object is None:
-            access_token = ErpUserTokenModel.objects.get(id=self.id)
+            access_token = TokenModel.objects.get(id=self.id)
             self.object = {
                 "id": self.id,
                 "token": access_token.token,
@@ -53,14 +54,14 @@ class UserToken(Base):
         """ mpop: 多点登录,True 允许多点点登录 """
 
         if mpop is False:
-            token_set = ErpUserTokenModel.objects.filter(user_id=user_id, client_id=client_id)
+            token_set = TokenModel.objects.filter(user_id=user_id, client_id=client_id)
             for row in token_set:
                 row.delete()
 
         expires = datetime.now() + timedelta(minutes=11)
-        erp_user_token = ErpUserTokenModel()
+        erp_user_token = TokenModel()
         erp_user_token.user_id = user_id
-        erp_user_token.token = ErpUserToken.make_token()
+        erp_user_token.token = TokenModel.make_token()
         erp_user_token.expires = expires
         erp_user_token.client_id = client_id
         erp_user_token.save()

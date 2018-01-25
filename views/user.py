@@ -13,9 +13,10 @@ from flask import request, jsonify
 from flask_restful import Api, Resource
 
 from views.api.v1.user import UserView
+from views.api.v1.token import TokenView
 
 
-auth_user = Blueprint('user', __name__, url_prefix='/user')
+user = Blueprint('user', __name__, url_prefix='/user')
 
 
 class Test(Resource):
@@ -29,6 +30,7 @@ api = Api()
 
 api.add_resource(Test, '/test')
 api.add_resource(UserView, '/users')
+api.add_resource(TokenView, '/token')
 
 
-api.init_app(auth_user)
+api.init_app(user)
